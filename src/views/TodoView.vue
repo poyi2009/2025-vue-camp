@@ -14,7 +14,8 @@ const signup = async () => {
       password: pwdSignup.value,
       nickname: nickname.value,
     })
-    alert(`${res.data.nickname} 註冊成功`)
+    console.log(res.data)
+    alert(`註冊成功`)
     emailSignup.value = ''
     pwdSignup.value = ''
     nickname.value = ''
