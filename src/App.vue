@@ -6,13 +6,7 @@ import { RouterLink, RouterView } from 'vue-router'
   <div role="navigation">
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <RouterLink to="/" class="nav-link">Home</RouterLink>
-      </li>
-      <li class="nav-item">
-        <RouterLink to="/about" class="nav-link">About</RouterLink>
-      </li>
-      <li class="nav-item">
-        <RouterLink to="/week1" class="nav-link">Week1</RouterLink>
+        <RouterLink to="/" class="nav-link">Week1</RouterLink>
       </li>
       <li class="nav-item">
         <RouterLink to="/review" class="nav-link">Review</RouterLink>
@@ -22,6 +16,9 @@ import { RouterLink, RouterView } from 'vue-router'
       </li>
       <li class="nav-item">
         <RouterLink to="/week3" class="nav-link">Week3</RouterLink>
+      </li>
+      <li class="nav-item">
+        <RouterLink to="/task" class="nav-link">Task</RouterLink>
       </li>
     </ul>
   </div>
