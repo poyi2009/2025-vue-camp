@@ -47,21 +47,20 @@ const data = ref([
   },
 ])
 const cart = ref([])
-const toasts = ref([])
+const toast = ref('')
+const toastType = ref()
 //通知
-provide('toasts', toasts)
+provide('toast', toast)
+provide('toastType', toastType)
 const addToasts = (message) => {
-  toasts.value.push({
-    id: new Date().getTime(),
-    message,
-  })
+  toast.value = message
   setTimeout(() => {
-    toasts.value.shift()
+    toast.value = ''
   }, 2000)
 }
-const handleCloseToast = (id) => {
-  const index = toasts.value.findIndex((toast) => toast.id === id)
-  toasts.value.splice(index, 1)
+//關閉通知
+const handleCloseToast = () => {
+  toast.value = ''
 }
 //購物車
 const handleAddToCart = (id) => {
@@ -69,6 +68,7 @@ const handleAddToCart = (id) => {
   const existProduct = data.value.find((item) => item.id === id)
   if (index !== -1) {
     cart.value[index].quantity += 1
+    toastType.value = false
     addToasts(`已更新「${existProduct.name}」購物車商品數量`)
     return
   }
@@ -76,11 +76,13 @@ const handleAddToCart = (id) => {
     ...existProduct,
     quantity: 1,
   })
+  toastType.value = false
   addToasts(`「${existProduct.name}」已加入購物車`)
 }
 const handleDeleteFromCart = (id) => {
   const index = cart.value.findIndex((item) => item.id === id)
   const deleteCartItem = cart.value.splice(index, 1)
+  toastType.value = true
   addToasts(`「${deleteCartItem[0].name}」已從購物車移除`)
 }
 //購物車總金額
@@ -112,10 +114,8 @@ const sum = computed(() => {
       </div>
     </div>
     <!-- 通知元件 -->
-    <div class="position-fixed top-0 end-0 p-3" style="z-index: 1050">
-      <div class="toast show align-items-center text-white bg-success border-0">
-        <TaskToasts @close-toast="handleCloseToast" />
-      </div>
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 1050" v-if="toast">
+      <TaskToasts @close-toast="handleCloseToast" />
     </div>
   </div>
 </template>

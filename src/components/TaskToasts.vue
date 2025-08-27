@@ -1,19 +1,25 @@
 <script setup>
 import { inject } from 'vue'
-const toastMessage = inject('toasts')
-const emit = defineEmits(['close-toast'])
+const toastMessage = inject('toast')
+const toastType = inject('toastType')
 //關閉通知
-const closeToast = (id) => {
-  emit('close-toast', id)
+const emit = defineEmits(['close-toast'])
+const closeToast = () => {
+  emit('close-toast')
 }
 </script>
 <template>
-  <div class="d-flex" v-for="toast in toastMessage" :key="toast.message">
-    <div class="toast-body">{{ toast.message }}</div>
-    <button
-      type="button"
-      class="btn-close btn-close-white me-2 m-auto"
-      @click="closeToast(toast.id)"
-    ></button>
+  <div
+    class="toast show align-items-center text-white border-0"
+    :class="{ 'bg-success': !toastType, 'bg-danger': toastType }"
+  >
+    <div class="d-flex">
+      <div class="toast-body">{{ toastMessage }}</div>
+      <button
+        type="button"
+        class="btn-close btn-close-white me-2 m-auto"
+        @click="closeToast()"
+      ></button>
+    </div>
   </div>
 </template>
