@@ -9,18 +9,17 @@ const pwdSignup = ref('')
 const nickname = ref('')
 const signup = async () => {
   try {
-    const res = await axios.post(`${api}/users/sign_up`, {
+    await axios.post(`${api}/users/sign_up`, {
       email: emailSignup.value,
       password: pwdSignup.value,
       nickname: nickname.value,
     })
-    console.log(res.data)
     alert(`註冊成功`)
     emailSignup.value = ''
     pwdSignup.value = ''
     nickname.value = ''
   } catch (error) {
-    alert(`${error.response.data.message}`)
+    alert(`註冊失敗: ${error.response.data.message}`)
   }
 }
 //取得使用者資料
@@ -37,7 +36,7 @@ const fetchUserData = async () => {
     })
     user.value = res.data
   } catch (error) {
-    console.log(error.response.data.message)
+    alert(`驗證失敗: ${error.response.data.message}`)
   }
 }
 //取得使用者todos資料
@@ -57,7 +56,7 @@ const getTodos = async () => {
     })
     todos.value = newList
   } catch (error) {
-    console.log(error.response.data.message)
+    alert(`取得使用者資料失敗: ${error.response.data.message}`)
   }
 }
 //登入
@@ -94,7 +93,7 @@ onMounted(async () => {
       await getTodos() //取得todos
     }
   } catch (error) {
-    console.log(error.response.data.message)
+    alert(`載入失敗: ${error.response.data.message}`)
   }
 })
 //登出

@@ -56,7 +56,7 @@ const addToasts = (message) => {
   toast.value = message
   setTimeout(() => {
     toast.value = ''
-  }, 2000)
+  }, 3000)
 }
 //關閉通知
 const handleCloseToast = () => {
